@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Planets_and_Spaceships
 {
@@ -54,19 +55,10 @@ namespace Planets_and_Spaceships
 
             foreach (var planet in planetList)
             {
-                Console.WriteLine($"{planet}:");
-
-                foreach (var (probe, planets) in Spaceship)
-                {
-                    foreach (var landedOnPlant in planets)
-                    {
-                        if (planet == landedOnPlant)
-                        {
-                            Console.WriteLine($"{probe}");
-                        }
-                    }
-                }
+                var probes = Spaceship.Where(probe => probe.Value.Contains(planet)).Select(probe => probe.Key);
+                Console.WriteLine($"{planet}: {string.Join("," , probes)}");
             }
+
         }
     }
 }
